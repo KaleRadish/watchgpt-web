@@ -44,10 +44,17 @@
       white-space: pre-wrap;
       display: flex;
       flex-direction: column;
+      overflow-y: auto;
+      height: 60vh;
     }
     .msg {
       margin-bottom: 1rem;
       overflow-wrap: break-word;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .msg::-webkit-scrollbar {
+      display: none;
     }
     .user { font-weight: bold; color: #7dcfff; }
     .ai { font-style: italic; color: #ccc; }
@@ -199,7 +206,7 @@
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
-              'Authorization': 'Bearer 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'
+              'Authorization': 'Bearer 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'
             },
             body: JSON.stringify({
               model: 'gpt-4o',
@@ -215,7 +222,15 @@
           });
 
           const data = await res.json();
-          let reply = data.choices?.[0]?.message?.content || 'Error.';
+          let reply;
+          if (data.choices?.[0]?.message?.content) {
+            reply = data.choices[0].message.content;
+          } else if (data.error?.message) {
+            reply = `API Error: ${data.error.message}`;
+          } else {
+            reply = 'Unexpected response format.';
+          }
+
           reply = autoWrapFullMathLines(reply);
 
           const aiMsg = document.createElement('div');
@@ -228,7 +243,7 @@
         } catch (err) {
           const errMsg = document.createElement('div');
           errMsg.className = 'msg ai';
-          errMsg.textContent = 'Failed to connect to OpenAI API.';
+          errMsg.textContent = 'Connection error: ' + err.message;
           chatOutputEl.appendChild(errMsg);
         }
       };
