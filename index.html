@@ -2,21 +2,27 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>WatchGPT Math</title>
   <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
   <style>
-    body {
-      font-family: -apple-system, sans-serif;
+    html, body {
+      margin: 0;
+      padding: 0;
       background: #000;
       color: #fff;
-      margin: 0;
-      padding: 1rem;
+      font-family: -apple-system, sans-serif;
       font-size: 1.1rem;
-      max-width: 100vw;
+      width: 100vw;
+      height: 100vh;
+      overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
+    }
+    body > * {
+      max-width: 100vw;
+      box-sizing: border-box;
     }
     input, button {
       font-size: 1.1rem;
@@ -35,13 +41,13 @@
       color: #fff;
     }
     #chat {
-      margin-top: 1rem;
       white-space: pre-wrap;
-      overflow-y: auto;
-      max-height: 60vh;
+      display: flex;
+      flex-direction: column;
     }
     .msg {
       margin-bottom: 1rem;
+      overflow-wrap: break-word;
     }
     .user { font-weight: bold; color: #7dcfff; }
     .ai { font-style: italic; color: #ccc; }
@@ -193,10 +199,10 @@
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
-              'Authorization': 'Bearer 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'
+              'Authorization': 'Bearer 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'
             },
             body: JSON.stringify({
-              model: 'gpt-3.5-turbo',
+              model: 'gpt-4o',
               messages: [
                 {
                   role: 'system',
@@ -227,7 +233,6 @@
         }
       };
 
-      // Load latest chat on page load
       const sessions = JSON.parse(localStorage.getItem('chatSessions') || '{}');
       const ids = Object.keys(sessions);
       if (ids.length) loadChat(ids[ids.length - 1]);
