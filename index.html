@@ -16,8 +16,8 @@
       font-family: -apple-system, sans-serif;
       font-size: 1.1rem;
       width: 100vw;
-      height: 100vh;
-      overflow-x: hidden;
+      min-height: 100vh;
+      overflow-y: auto;
       -webkit-font-smoothing: antialiased;
     }
     body > * {
@@ -44,8 +44,6 @@
       white-space: pre-wrap;
       display: flex;
       flex-direction: column;
-      overflow-y: auto;
-      height: 60vh;
     }
     .msg {
       margin-bottom: 1rem;
@@ -206,7 +204,7 @@
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
-              'Authorization': 'Bearer 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'
+              'Authorization': 'Bearer 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'
             },
             body: JSON.stringify({
               model: 'gpt-4o',
