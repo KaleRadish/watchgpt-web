@@ -29,8 +29,8 @@
       color: #9cf;
       font-size: 1rem;
       border: none;
-      padding: 0.5rem 0.6rem;
-      border-radius: 4px;
+      padding: 0.5rem 0.8rem;
+      border-radius: 6px;
     }
     #chat {
       white-space: pre-wrap;
@@ -88,6 +88,10 @@
       padding: 0.3rem;
       border-top: 1px solid #333;
       z-index: 11;
+    }
+    #chat-controls button {
+      min-width: 20%;
+      margin: 0 0.2rem;
     }
     #chat-controls input[type="text"] {
       flex: 1;
@@ -230,7 +234,7 @@
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
-              'Authorization': 'Bearer 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'
+              'Authorization': 'Bearer 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'
             },
             body: JSON.stringify({
               model: 'o3-mini',
