@@ -1,4 +1,7 @@
-{
-  "cleanUrls": true,
-  "outputDirectory": "public"
-}
+  {
+    "cleanUrls": true,
+    "outputDirectory": "public",
+    "rewrites": [
+      { "source": "/(.*)", "destination": "/index.html" }
+    ]
+  }
