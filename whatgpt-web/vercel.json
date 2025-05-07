@@ -1,10 +1,10 @@
 {
   "builds": [
-    { "src": "index.html",      "use": "@vercel/static" },
-    { "src": "api/**/*.js",     "use": "@vercel/node"   }
+    { "src": "WatchGPT-Math/index.html",  "use": "@vercel/static" },
+    { "src": "api/**/*.js",               "use": "@vercel/node"   }
   ],
   "routes": [
     { "handle": "filesystem" },
-    { "src": "/.*", "dest": "/index.html" }
+    { "src": "/.*", "dest": "/WatchGPT-Math/index.html" }
   ]
 }
