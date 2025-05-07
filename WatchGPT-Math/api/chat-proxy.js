@@ -1,21 +1,26 @@
-export default async function handler(req, res) {
-  const { messages } = await req.json();
+module.exports = async (req, res) => {
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Only POST allowed' });
+  }
 
-  const openaiRes = await fetch('https://api.openai.com/v1/chat/completions', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`
-    },
-    body: JSON.stringify({
-      model: 'o3-mini',
-      messages
-    })
-  });
+  const { messages } = req.body;
 
-  const data = await openaiRes.json();
-  return new Response(JSON.stringify(data), {
-    status: 200,
-    headers: { 'Content-Type': 'application/json' }
-  });
-}
+  try {
+    const openaiRes = await fetch('https://api.openai.com/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`
+      },
+      body: JSON.stringify({
+        model: 'gpt-4o',
+        messages
+      })
+    });
+
+    const data = await openaiRes.json();
+    res.status(200).json(data);
+  } catch (err) {
+    res.status(500).json({ error: 'OpenAI request failed.' });
+  }
+};
